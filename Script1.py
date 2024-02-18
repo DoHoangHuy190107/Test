@@ -37,8 +37,7 @@ def Script1():
             counter += 1
         else: done = True
 
-        if index == len(messages) - 1:
-            return
+        
         draw_text('Press any key to continue', font, 520, 360, (252, 0, 0))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -49,6 +48,8 @@ def Script1():
                     index += 1
                     message = messages[index]
                     done = False 
+                elif index == len(messages) - 1:
+                    return
 
         snip = font.render(message[0: counter // speed], True, 'white')
         screen.blit(snip, (10, index * line))
