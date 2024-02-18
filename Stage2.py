@@ -24,7 +24,7 @@ green = (0, 242, 20)
 font = pygame.font.SysFont(None, 32)
 fontS = pygame.font.SysFont(None, 16)
 screen = pygame.display.set_mode((width, height))
-background_image = pygame.image.load("Images/stage2_castle.png").convert()
+background_image = pygame.image.load("Images2/stage2_castle.png").convert()
 
 player = Player(10, 290, PlayerHp)
 
@@ -111,7 +111,6 @@ def phase2():
         player.handle_event(monster_group)
         player.draw()
 
-        print(numDef)
         numDef += monster_group.update()
         monster_group.move(player)
         monster_group.isAttack()
@@ -140,8 +139,7 @@ def Script():
             counter += 1
         else: done = True
 
-        if index == len(messages) - 1:
-            return
+        
         draw_text('Press any key to continue', font, 520, 360, (252, 0, 0))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -152,6 +150,8 @@ def Script():
                     index += 1
                     message = messages[index]
                     done = False 
+                elif index == len(messages) - 1:
+                    return
 
         snip = font.render(message[0: counter // speed], True, 'white')
         screen.blit(snip, (10, index * line))
