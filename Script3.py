@@ -18,7 +18,7 @@ def Script3():
     speed = 1
     index = 0
     messages = ['After killed 3 monsters, Mysterious Person appeared',
-                'He said: Congratulations on achieving the power you desire'
+                'He said: Congratulations on achieving the power you desire',
                 'Now you can enjoy this world,',
                  'that power is yours'
                 ]
