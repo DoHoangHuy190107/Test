@@ -19,7 +19,8 @@ def Script3():
     index = 0
     messages = ['After killed 3 monsters, Mysterious Person appeared',
                 'He said: Congratulations on achieving the power you desire'
-                'Now you can enjoy this world, that power is yours'
+                'Now you can enjoy this world,',
+                 'that power is yours'
                 ]
     message = messages[index]
     done = False
@@ -30,8 +31,6 @@ def Script3():
             counter += 1
         else: done = True
 
-        if index == len(messages) - 1:
-            return
         draw_text('Press any key to continue', font, 520, 360, (252, 0, 0))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -42,6 +41,8 @@ def Script3():
                     index += 1
                     message = messages[index]
                     done = False 
+                elif index == len(messages) - 1:
+                    return
 
         snip = font.render(message[0: counter // speed], True, 'white')
         screen.blit(snip, (10, index * line))
