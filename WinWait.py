@@ -1,6 +1,7 @@
 import pygame, sys
 from textInput import draw_text
 from Button import Button
+from Play import play as play
 pygame.init()
 
 screen = pygame.display.set_mode((800, 400))
@@ -9,25 +10,42 @@ font = pygame.font.SysFont(None, 30)
 #Create images of button
 play_button = pygame.image.load("PlayButton.png").convert_alpha()
 guide_button = pygame.image.load("GuideButton.png").convert_alpha()
-quit_button = pygame.image.load("New Piskel (10).png").convert_alpha()
-#button class
+quit_button = pygame.image.load("QuitButton.png").convert_alpha()
+# Background
+background_image = pygame.image.load("Images/stage1_forest.png").convert()
+guide_image = pygame.image.load("Images/WinGuide.png").convert()
 
 def GUIDE():
-      draw_text("This is Guide", font, 200, 200, (50, 20, 100))
+    Esc_button = pygame.Rect(0, 30, 68, 28)
+    while True: 
+        screen.blit(guide_image, (0, 0))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    return
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                pos = pygame.mouse.get_pos()
+                if Esc_button.collidepoint(pos):
+                    return 
+        pygame.display.flip()
 
 def QUIT():
     pygame.quit()
     sys.exit()
 
 def PLAY():
-     draw_text("Now You can play", font, 400, 200, (50, 20, 100))
+    play()
 	
-def main():
+def WinWait():
     play = Button(340, 200, play_button, 2)
     guide = Button(340, 250, guide_button, 2)
     quit = Button(340, 300, quit_button, 2)
     t = 1
     while True: 
+        screen.blit(background_image, (0, 0))
         if play.draw():
             PLAY()
         if guide.draw():
@@ -42,4 +60,4 @@ def main():
 
 
 if __name__ == "__main__":
-	main()
+	WinWait()
