@@ -6,7 +6,7 @@ pygame.init()
 
 screen = pygame.display.set_mode((800, 400))
 font = pygame.font.SysFont(None, 30)
-
+pygame.display.set_caption("Knight of Jambon")
 #Create images of button
 play_button = pygame.image.load("PlayButton.png").convert_alpha()
 guide_button = pygame.image.load("GuideButton.png").convert_alpha()
