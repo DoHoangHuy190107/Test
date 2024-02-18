@@ -42,7 +42,14 @@ class GroupMonster(pygame.sprite.Group):
         numDef = 0
         for mons in self.sprites():
             if mons.HP < 1:
-                self.remove(mons)
+                if not mons.died:
+                    mons.died = 1
+                mons.indexD += 1
+                if mons.indexD == 11:
+                    self.remove(mons)
+                    numDef += 1
+                else:
+                    mons.image = pygame.transform.scale(mons.boss_died[mons.indexD], (sizeW, sizeH))
             else:
                 if mons.isAtt:          # Nếu trog trạng thái ra đòn
                     continue
@@ -62,11 +69,11 @@ class GroupMonster(pygame.sprite.Group):
             elif target.X > mons.X:   # NVC bên phải
                 mons.X += mons.Vel
                 mons.dir = 2
-                mons.rectAtt = pygame.Rect(mons.X + mons.rect.width - 80, mons.Y , mons.rect.width, mons.rect.height)
+                mons.rectAtt = pygame.Rect(mons.X + mons.rect.width - 100, mons.Y , mons.rect.width, mons.rect.height)
             else:                   # NVC bên trái
                 mons.X -= mons.Vel
                 mons.dir = -2
-                mons.rectAtt = pygame.Rect(mons.X - mons.rect.width + 80, mons.Y , mons.rect.width, mons.rect.height)
+                mons.rectAtt = pygame.Rect(mons.X - mons.rect.width + 100, mons.Y , mons.rect.width, mons.rect.height)
             mons.rect = pygame.Rect(mons.X, mons.Y, sizeW, sizeH)
 
     def draw(self):
@@ -113,12 +120,13 @@ class Boss(pygame.sprite.Sprite):
         self.indexR = 0     
         self.indexAL = 0 # Thứ tự khung hình  attack
         self.indexAR = 0    
+        self.indexD = 0
 
         #Basic In4
         self.image = pygame.transform.scale(pygame.image.load(os.path.join('Images/demon_walk_1.png')), (sizeW, sizeH))  # Resize the image as needed
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y) 
-        self.rectAtt = pygame.Rect(self.X + self.rect.width - 80, self.Y , self.rect.width, self.rect.height) # range of Attack
+        self.rectAtt = pygame.Rect(self.X + self.rect.width - 100, self.Y , self.rect.width, self.rect.height) # range of Attack
         self.dir = 1
         self.isAtt = 0
         self.Vel = 2
@@ -162,12 +170,24 @@ class Boss(pygame.sprite.Sprite):
         for i in range(1, 11):
             str = 'Images/demon_cleave_'
             if i > 0:
-                if i == 10:
-                    str += chr(49) + chr(48)
+                if i > 9:
+                    str += chr( int(i / 10) + 48) + chr(i % 10 + 48)
                 else:
                     str += chr(i + 48)
             str += 'Mi.png'
             self.boss_attR.append(pygame.image.load(os.path.join(str)))
+
+        for i in range(1, 12):
+            str = 'Images/demon_death_'
+            if i > 0:
+                if i > 9:
+                    str += chr( int(i / 10) + 48) + chr(i % 10 + 48)
+                else:
+                    str += chr(i + 48)
+                
+            str += '.png'
+            self.boss_died.append(pygame.image.load(os.path.join(str)))
+        
 
         """
         dir: hướng nhìn
