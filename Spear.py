@@ -38,9 +38,11 @@ class GroupMonster(pygame.sprite.Group):   # Nhóm các spear
 
 
     def update(self):
+        numDef = 0
         for mons in self.sprites():
             if mons.HP < 1:         # Quái hết máu
                 self.remove(mons)
+                numDef += 1
             else:
                 if mons.isAtt:   # Nếu trog trạng thái ra đòn
                     continue
@@ -50,6 +52,7 @@ class GroupMonster(pygame.sprite.Group):   # Nhóm các spear
                 else:
                     mons.image = pygame.transform.scale(mons.arc_left[mons.indexL], (sizeW, sizeH))
                     mons.indexL = (mons.indexL + 1) % 6
+        return numDef
 
     def move(self, target):                         # Di chuyển theo nvc
         for mons in self.sprites():
@@ -58,11 +61,11 @@ class GroupMonster(pygame.sprite.Group):   # Nhóm các spear
             elif target.X > mons.X:         # NVC bên phải
                 mons.X += mons.Vel
                 mons.dir = 2
-                mons.rectAtt = pygame.Rect(mons.X + mons.rect.width - 10, mons.Y , mons.rect.width, mons.rect.height)
+                mons.rectAtt = pygame.Rect(mons.X + mons.rect.width / 2 - 20, mons.Y , mons.rect.width, mons.rect.height)
             else:                   # NVC bên trái
                 mons.X -= mons.Vel
                 mons.dir = -2
-                mons.rectAtt = pygame.Rect(mons.X - mons.rect.width + 10, mons.Y , mons.rect.width, mons.rect.height)
+                mons.rectAtt = pygame.Rect(mons.X - mons.rect.width / 2 + 40, mons.Y , mons.rect.width, mons.rect.height)
             mons.rect = pygame.Rect(mons.X, mons.Y, 50, 50)
 
     def draw(self):
@@ -84,7 +87,7 @@ class GroupMonster(pygame.sprite.Group):   # Nhóm các spear
                             rd = random.randint(0, 200)
                         else:
                             rd = random.randint(600, 800)
-                newMons = Archer(rd, 245, self.Hp, self.target)
+                newMons = Spear(rd, 245, self.Hp, self.target)
                 self.add(newMons)
         
     def isAttack(self):                                   
@@ -96,7 +99,7 @@ class GroupMonster(pygame.sprite.Group):   # Nhóm các spear
 
 
 
-class Archer(pygame.sprite.Sprite):
+class Spear(pygame.sprite.Sprite):
     def __init__(self, x, y, Hp, target):
         super().__init__()
 
@@ -114,7 +117,7 @@ class Archer(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(pygame.image.load(os.path.join('Images/SkeRun.png')), (sizeW, sizeH))  # Resize the image as needed
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y) 
-        self.rectAtt = pygame.Rect(self.X + self.rect.width - 10, self.Y , self.rect.width, self.rect.height) # range of Attack
+        self.rectAtt = pygame.Rect(self.X + self.rect.width / 2 - 20, self.Y , self.rect.width, self.rect.height) # range of Attack
         self.dir = 1
         self.isAtt = 0
         self.Vel = 2
