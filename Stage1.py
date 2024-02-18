@@ -23,7 +23,7 @@ green = (0, 242, 20)
 font = pygame.font.SysFont(None, 32)
 fontS = pygame.font.SysFont(None, 16)
 screen = pygame.display.set_mode((width, height))
-background_image = pygame.image.load("Images/stage1_forest.png").convert()
+background_image = pygame.image.load("Images2/stage1_forest.png").convert()
 
 def Died():
     
