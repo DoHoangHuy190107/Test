@@ -25,7 +25,7 @@ y_gravity = 2
 white = (252, 252, 252)
 black = (0, 0, 0)
 
-background_image = pygame.image.load("Images/stage1_forest.png").convert()
+background_image = pygame.image.load("Images2/stage1_forest.png").convert()
 
 def play():
     run = True
