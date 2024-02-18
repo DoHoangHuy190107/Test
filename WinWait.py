@@ -12,8 +12,8 @@ play_button = pygame.image.load("PlayButton.png").convert_alpha()
 guide_button = pygame.image.load("GuideButton.png").convert_alpha()
 quit_button = pygame.image.load("QuitButton.png").convert_alpha()
 # Background
-background_image = pygame.image.load("Images/Knight_of_Jambon.png").convert()
-guide_image = pygame.image.load("Images/WinGuide.png").convert()
+background_image = pygame.image.load("Images2/Knight_of_Jambon.png").convert()
+guide_image = pygame.image.load("Images2/WinGuide.png").convert()
 
 def GUIDE():
     Esc_button = pygame.Rect(0, 30, 68, 28)
