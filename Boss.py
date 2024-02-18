@@ -178,7 +178,7 @@ class Boss(pygame.sprite.Sprite):
             self.boss_attR.append(pygame.image.load(os.path.join(str)))
 
         for i in range(1, 12):
-            str = 'Images/demon_death_'
+            str = 'Images2/demon_death_'
             if i > 0:
                 if i > 9:
                     str += chr( int(i / 10) + 48) + chr(i % 10 + 48)
